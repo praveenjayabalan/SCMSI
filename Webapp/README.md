@@ -1,4 +1,4 @@
-# wEB FOR SIGNUP AND LOGIN
+# weB FOR SIGNUP AND LOGIN
 This web app has been developed using the popular Django framework and Bootstrap for the frontend. My motivation to build this project is so that I can learn about Django and tighten up my skills. This mini-app can be easily integrated into a bigger system project that needs to have a registration and login system.
 
 ### Basic Features of The App
@@ -16,15 +16,27 @@ This web app has been developed using the popular Django framework and Bootstrap
 
 
 ### Quick Start
-To get this project up and running locally on your computer follow the following steps.
-1. Set up a python virtual environment
-2. Run the following commands
-```
-$ pip install -r requirements.txt
-$ python manage.py migrate
-$ python manage.py createsuperuser
-$ python manage.py runserver
-```
+$ pip install virtualenv
+Then, Git clone this repo to your PC
+
+    $ git clone https://github.com/praveenjayabalan/SCMSI.git
+    $ cd Webapp
+    
+Create a virtual environment
+
+    $ virtualenv .venv && source .venv/bin/activate
+Install dependancies
+
+    $ pip install -r requirements.txt
+Make migrations & migrate
+
+    $ python3 manage.py makemigrations && python3 manage.py migrate
+Create Super user
+    
+    $ python3 manage.py createsuperuser
+
+### Launching the app
+    $ python3 manage.py runserver
    
 3. Open a browser and go to http://localhost:8000/
 

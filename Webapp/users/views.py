@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 
@@ -35,8 +37,17 @@ class RegisterView(View):
 
         if form.is_valid():
             form.save()
+            import pdb;pdb.set_trace()
 
             username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+
+            subject = 'welcome to SCMS'
+            message = f'Hi {username}, thank you for registering in SCMS.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [email, ]
+            send_mail( subject, message, email_from, recipient_list )
+
             messages.success(request, f'Account created for {username}')
 
             return redirect(to='login')

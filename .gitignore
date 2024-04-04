@@ -1,0 +1,4 @@
+Webapp/users/__pycache__/*
+Webapp/user_management/__pycache__/*
+Webapp/users/migrations/__pycache__/*
+Webapp/db.sqlite3
