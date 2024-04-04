@@ -36,9 +36,8 @@ class RegisterView(View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            form.save()
-            import pdb;pdb.set_trace()
-
+            form.save()            
+            # send email
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
 
