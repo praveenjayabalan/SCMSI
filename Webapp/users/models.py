@@ -9,6 +9,9 @@ class Profile(models.Model):
 
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     bio = models.TextField()
+    # added columns
+    phone = models.TextField(null = True)
+    address = models.TextField(null = True)
 
     def __str__(self):
         return self.user.username
