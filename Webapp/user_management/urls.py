@@ -10,6 +10,11 @@ from users.views import CustomLoginView, ResetPasswordView, ChangePasswordView
 
 from users.forms import LoginForm
 
+admin.site.site_header = "SCMSI Admin"
+admin.site.site_title = "SCMSI Admin Portal"
+admin.site.index_title = "Welcome to SCMSI Portal"
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
