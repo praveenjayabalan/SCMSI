@@ -33,14 +33,15 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user','phone', 'address', 'twelth_percentage']     
 
     def get_queryset(self,request):        
-        qs= super().get_queryset(request)        
-        return qs.filter(twelth_percentage__gte = 60)
+        qs= super().get_queryset(request)      
+        conf_per = int(ConfigurationMaster.objects.filter(config_name = "Percentage_limit").values_list('config_value',flat=True)[0]) 
+        return qs.filter(twelth_percentage__gte = conf_per)
 
     def has_add_permission(self, request,obj = None):
         return False
    
            
     
-# admin.site.register(User, UserAdmin)
+admin.site.register(User, UserAdmin)
 admin.site.register(Profile, ProfileAdmin)
     
