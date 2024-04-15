@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from .models import Profile
+from course.models import CourseMaster
 from django.conf import settings
 
 
@@ -79,6 +80,10 @@ class UpdateUserForm(forms.ModelForm):
         model = User
         fields = ['username', 'email']
 
+# class CourseForm(forms.Form):
+#     course = forms.ModelChoiceField(queryset = CourseMaster.objects.all() )
+#     class Meta:
+#         model=CourseMaster
 
 class UpdateProfileForm(forms.ModelForm):
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
@@ -89,8 +94,12 @@ class UpdateProfileForm(forms.ModelForm):
     consulting_date = forms.DateField(
     widget=forms.SelectDateWidget( attrs={'readonly':'readonly'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
     is_approved =  forms.BooleanField(required = False,widget=forms.TextInput(attrs={'readonly':'readonly'}))
-    # forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-control','name':'APPROVED'}))
     
+    course_name = forms.ModelChoiceField(
+        queryset=CourseMaster.objects.all().values_list('course_name',flat=True),initial='id',to_field_name='course_id',
+        widget=forms.Select(attrs={'class': 'select'}),
+    )   
+        
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved']
+        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved','course_name']

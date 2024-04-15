@@ -34,7 +34,7 @@ class RegisterView(View):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-
+        
         if form.is_valid():
             form.save()            
             # send email
@@ -95,9 +95,11 @@ def profile(request):
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
         
+        import pdb;pdb.set_trace()
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            profile_form.save()            
+            profile_form.save()   
+                   
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='users-profile')
     else:
