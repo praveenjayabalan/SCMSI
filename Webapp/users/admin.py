@@ -1,3 +1,4 @@
+from pydoc import resolve
 from django.contrib import admin
 from django.http import HttpRequest
 from .models import Profile
@@ -13,23 +14,33 @@ class UserProfileInline(admin.StackedInline):
     fields = ['is_approved','phone','address','bio','avatar','twelth_percentage']
     list_filter = ['is_approved']
 
-    def get_queryset(self,request):
-        qs= super(UserProfileInline).get_queryset(request)  
-        # import pdb;pdb.set_trace()  
-        percentage = int(ConfigurationMaster.objects.filter(config_name='Percentage_limit').values_list('config_value',flat=True)[0])      
-        return qs.filter(twelth_percentage__gte=percentage)
 
 class UserAdmin(admin.ModelAdmin):
     inlines = [UserProfileInline]
     fields = ['username','first_name','last_name','email','is_active']
     list_display = ['username', 'email', 'first_name', 'last_name','is_active']     
             
-    def get_queryset(self,request):
+    def get_queryset(self,request):        
         qs= super().get_queryset(request)        
         return qs.filter(is_staff = False)
     
     def has_add_permission(self, request,obj = None):
         return False
     
-admin.site.register(User, UserAdmin)
+    
+class ProfileAdmin(admin.ModelAdmin):
+    fields = ['is_approved','phone','address','bio','avatar','twelth_percentage']
+    list_display = ['user','phone', 'address', 'twelth_percentage']     
+
+    def get_queryset(self,request):        
+        qs= super().get_queryset(request)        
+        return qs.filter(twelth_percentage__gte = 60)
+
+    def has_add_permission(self, request,obj = None):
+        return False
+   
+           
+    
+# admin.site.register(User, UserAdmin)
+admin.site.register(Profile, ProfileAdmin)
     
