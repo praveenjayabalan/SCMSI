@@ -92,12 +92,13 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
 @login_required
 def profile(request):
     if request.method == 'POST':
+        import pdb;pdb.set_trace()
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
-
+        
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            profile_form.save()
+            profile_form.save()            
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='users-profile')
     else:

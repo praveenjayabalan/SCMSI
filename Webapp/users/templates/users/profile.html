@@ -34,13 +34,26 @@
                         <label class="small mb-1">Address:</label>
                            <div> {{ profile_form.address }}</div>
                     </div>
+                    <div class="form-group">  
+                        <label class="small mb-1">Approved:{{ profile_form.is_approved }} </label>
+                        
+                    </div> 
                     <div class="form-group">
                         <a href="{% url 'password_change' %}">Change Password</a>
                         <hr>
                         <label class="small mb-1">Change Avatar:</label>
                         {{ profile_form.avatar }}
+                    </div>                
+                    <div class="form-group">                        
+                        <hr>
+                        <!-- <label class="small mb-1">Tenth marksheet:</label>
+                        {{ profile_form.tenth_marksheet }} -->
                     </div>
-                    <label class="small mb-1">Bio:</label> {{ profile_form.bio }}
+                    <div class="form-group">
+                        <label class="small mb-1">twelth percentage:</label>
+                            {{ profile_form.twelth_percentage }}                        
+                    </div>
+                    
                 </div>
             </div>
             <br><br>

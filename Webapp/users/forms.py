@@ -85,7 +85,14 @@ class UpdateProfileForm(forms.ModelForm):
     # added columns
     phone = forms.CharField(max_length=100,required=True,widget=forms.TextInput(attrs={'class':'form-control' , 'autocomplete': 'off','pattern':'[0-9]+', 'title':'please enter valid number'}))
     address = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    is_approved = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-control','name':'APPROVED'}))
+
+    twelth_percentage = forms.IntegerField(required=True,widget=forms.TextInput(attrs={'class':'form-control' , 'autocomplete': 'off','pattern':'[0-9]+', 'title':'please enter valid number'}))
+    # tenth_marksheet = forms.ImageField(required=True,widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    twelth_marksheet = forms.ImageField(required=True,widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    
 
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio','phone','address']
+        fields = ['avatar', 'bio','phone','address','is_approved','twelth_percentage']
+        # 'tenth_marksheet',

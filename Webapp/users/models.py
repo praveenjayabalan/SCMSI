@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
-
+import datetime
 
 # Extending User Model Using a One-To-One Link
 class Profile(models.Model):
@@ -10,8 +10,14 @@ class Profile(models.Model):
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     bio = models.TextField()
     # added columns
-    phone = models.TextField(null = True)
+    phone = models.CharField(null = True,max_length=10)
     address = models.TextField(null = True)
+    is_approved = models.BooleanField(default = False)
+    twelth_percentage = models.IntegerField(null = True,max_length=10)
+
+    # tenth_marksheet = models.ImageField(default='default.jpg', upload_to='tenth_marksheet_images')
+    # twelth_marksheet = models.ImageField(upload_to='twelth_marksheet_images')
+    # consulting_date = models.DateField(default=datetime.datetime.now, blank=True)
 
     def __str__(self):
         return self.user.username
