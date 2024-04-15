@@ -87,7 +87,7 @@ class UpdateProfileForm(forms.ModelForm):
     address = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
     twelth_percentage = forms.IntegerField(required=True,widget=forms.TextInput(attrs={'class':'form-control' , 'autocomplete': 'off','pattern':'[0-9]+', 'title':'please enter valid number'}))
     consulting_date = forms.DateField(
-    widget=forms.SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
+    widget=forms.SelectDateWidget( attrs={'readonly':'readonly'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
     is_approved =  forms.BooleanField(required = False,widget=forms.TextInput(attrs={'readonly':'readonly'}))
     # forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-control','name':'APPROVED'}))
     

@@ -1,9 +1,12 @@
 from pydoc import resolve
 from django.contrib import admin
 from django.http import HttpRequest
+from django.http.response import HttpResponse
 from .models import Profile
 from configdata.models import ConfigurationMaster
 from django.contrib.auth.models import User,Group
+from django.core.mail import send_mail
+from django.conf import settings
 
 admin.site.unregister(User)
 admin.site.unregister(Group)
@@ -39,6 +42,27 @@ class ProfileAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request,obj = None):
         return False
+    
+    def response_change(self, request: HttpRequest, obj: None) -> HttpResponse:
+        import pdb;pdb.set_trace()
+        if obj.is_approved:
+            # send email for approval
+            subject = 'SCMS Application was approved'
+            # get username and email
+            userinfo = User.objects.get(id=obj.user_id)
+            username =userinfo.username
+            email =userinfo.email
+            counslingdate = obj.consulting_date
+                    
+            message = f'Hi {username}, thanks for registering your counseling date has been scheduled on {counslingdate} '
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [email, ]
+            send_mail( subject, message, email_from, recipient_list )
+
+
+
+        return super().response_change(request, obj)
+    
    
            
     
