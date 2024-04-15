@@ -29,7 +29,7 @@ class UserAdmin(admin.ModelAdmin):
     
     
 class ProfileAdmin(admin.ModelAdmin):
-    fields = ['is_approved','phone','address','bio','avatar','twelth_percentage']
+    fields = ['is_approved','phone','address','bio','avatar','twelth_percentage','consulting_date']
     list_display = ['user','phone', 'address', 'twelth_percentage']     
 
     def get_queryset(self,request):        

@@ -10,14 +10,13 @@ class Profile(models.Model):
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     bio = models.TextField()
     # added columns
-    phone = models.CharField(null = True,max_length=10)
+    phone = models.TextField(null = True)
     address = models.TextField(null = True)
-    is_approved = models.BooleanField(default = False)
     twelth_percentage = models.IntegerField(null = True,max_length=10)
-
-    # tenth_marksheet = models.ImageField(default='default.jpg', upload_to='tenth_marksheet_images')
-    # twelth_marksheet = models.ImageField(upload_to='twelth_marksheet_images')
-    # consulting_date = models.DateField(default=datetime.datetime.now, blank=True)
+    consulting_date = models.DateField(default=datetime.datetime.now, blank=True)
+    is_approved = models.BooleanField(default = False)
+    tenth_marksheet = models.ImageField(default='default.jpg', upload_to='tenth_marksheet_images')
+    twelth_marksheet = models.ImageField(default='default.jpg',upload_to='twelth_marksheet_images')
 
     def __str__(self):
         return self.user.username
