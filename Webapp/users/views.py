@@ -91,8 +91,7 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
 
 @login_required
 def profile(request):
-    if request.method == 'POST':
-        import pdb;pdb.set_trace()
+    if request.method == 'POST':        
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
         
