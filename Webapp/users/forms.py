@@ -89,10 +89,8 @@ class UpdateProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if self.instance.pk:
-            # import pdb;pdb.set_trace()
-            # if hasattr(self, "instance") and self.instance:
-                # self.fields['courses'].queryset |= CourseMaster.objects.filter(pk=self.instance.course.pk)
+        if self.instance.pk:             
+            # self.fields['consulting_date'].widget.attrs['disabled']=True
             self.initial.update({'courses': self.instance.course.pk})
 
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
@@ -117,4 +115,4 @@ class UpdateProfileForm(forms.ModelForm):
         
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved','courses','twelth_marksheet']
+        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved','courses','twelth_marksheet','tenth_marksheet']
