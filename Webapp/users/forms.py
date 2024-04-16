@@ -85,7 +85,6 @@ class UpdateUserForm(forms.ModelForm):
 #     class Meta:
 #         model=CourseMaster
 
-
 class UpdateProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -104,7 +103,8 @@ class UpdateProfileForm(forms.ModelForm):
     consulting_date = forms.DateField(
     widget=forms.SelectDateWidget( attrs={'class': 'date_class','readonly':'readonly'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
     is_approved =  forms.BooleanField(required = False,widget=forms.TextInput(attrs={'class':'form-control' ,   'readonly':'readonly'}))
-    
+    twelth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    tenth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
     courses = forms.ModelChoiceField(
         queryset=CourseMaster.objects.all(),
         widget=forms.Select(attrs={'class': 'form-control'}),
@@ -117,4 +117,4 @@ class UpdateProfileForm(forms.ModelForm):
         
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved','courses']
+        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved','courses','twelth_marksheet']
