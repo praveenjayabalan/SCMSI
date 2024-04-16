@@ -103,8 +103,8 @@ class UpdateProfileForm(forms.ModelForm):
     consulting_date = forms.DateField(
     widget=forms.SelectDateWidget( attrs={'class': 'date_class','readonly':'readonly'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
     is_approved =  forms.BooleanField(required = False,widget=forms.TextInput(attrs={'class':'form-control' ,   'readonly':'readonly'}))
-    twelth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
-    tenth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    twelth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}),required=False)
+    tenth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}),required=False)
     courses = forms.ModelChoiceField(
         queryset=CourseMaster.objects.all(),
         widget=forms.Select(attrs={'class': 'form-control'}),
