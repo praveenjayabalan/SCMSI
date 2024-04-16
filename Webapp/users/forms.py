@@ -102,12 +102,12 @@ class UpdateProfileForm(forms.ModelForm):
     address = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
     twelth_percentage = forms.IntegerField(required=True,widget=forms.TextInput(attrs={'class':'form-control' , 'autocomplete': 'off','pattern':'[0-9]+', 'title':'please enter valid number'}))
     consulting_date = forms.DateField(
-    widget=forms.SelectDateWidget( attrs={'readonly':'readonly'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
-    is_approved =  forms.BooleanField(required = False,widget=forms.TextInput(attrs={'readonly':'readonly'}))
+    widget=forms.SelectDateWidget( attrs={'class': 'date_class','readonly':'readonly'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
+    is_approved =  forms.BooleanField(required = False,widget=forms.TextInput(attrs={'class':'form-control' ,   'readonly':'readonly'}))
     
     courses = forms.ModelChoiceField(
         queryset=CourseMaster.objects.all(),
-        widget=forms.Select(attrs={'class': 'select'}),
+        widget=forms.Select(attrs={'class': 'form-control'}),
         empty_label='Select Courses',
         # widget = forms.NumberInput,
         help_text="Enter the alt of the sample",
