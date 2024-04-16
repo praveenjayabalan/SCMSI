@@ -35,7 +35,6 @@ class RegisterView(View):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        
         if form.is_valid():
             form.save()            
             # send email
@@ -98,7 +97,7 @@ def profile(request):
         
         if user_form.is_valid() and profile_form.is_valid():             
             user_form.save()
-            post = profile_form.save()             
+            post = profile_form.save()                
             post.course_id = int(request.POST['courses'])
             post.save()                         
                    
