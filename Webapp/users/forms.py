@@ -88,9 +88,10 @@ class UpdateUserForm(forms.ModelForm):
 class UpdateProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
+        
         super().__init__(*args, **kwargs)
         if self.instance.pk:             
-            # self.fields['consulting_date'].widget.attrs['disabled']=True
+            self.fields['consulting_date'].widget.attrs['disabled']=True             
             self.initial.update({'courses': self.instance.course.pk})
 
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
@@ -98,8 +99,8 @@ class UpdateProfileForm(forms.ModelForm):
     phone = forms.CharField(max_length=100,required=True,widget=forms.TextInput(attrs={'class':'form-control' , 'autocomplete': 'off','pattern':'[0-9]+', 'title':'please enter valid number'}))
     address = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
     twelth_percentage = forms.IntegerField(required=True,widget=forms.TextInput(attrs={'class':'form-control' , 'autocomplete': 'off','pattern':'[0-9]+', 'title':'please enter valid number'}))
-    consulting_date = forms.DateField(
-    widget=forms.SelectDateWidget( attrs={'style': 'width: 33%; display: inline-block;','readonly':'readonly'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
+    consulting_date = forms.DateField(required=False,
+    widget=forms.SelectDateWidget( attrs={'style': 'width: 33%; display: inline-block;'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
     is_approved =  forms.BooleanField(required = False,widget=forms.TextInput(attrs={'class':'form-control' ,   'readonly':'readonly'}))
     twelth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}),required=False)
     tenth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}),required=False)
