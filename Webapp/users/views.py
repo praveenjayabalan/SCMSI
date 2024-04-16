@@ -7,6 +7,7 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
+from course.models import *
 
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 
@@ -95,10 +96,11 @@ def profile(request):
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
         
-        import pdb;pdb.set_trace()
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid():             
             user_form.save()
-            profile_form.save()   
+            post = profile_form.save()             
+            post.course_id = int(request.POST['courses'])
+            post.save()                         
                    
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='users-profile')
@@ -107,3 +109,4 @@ def profile(request):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+

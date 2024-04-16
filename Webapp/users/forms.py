@@ -85,7 +85,17 @@ class UpdateUserForm(forms.ModelForm):
 #     class Meta:
 #         model=CourseMaster
 
+
 class UpdateProfileForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.pk:
+            # import pdb;pdb.set_trace()
+            # if hasattr(self, "instance") and self.instance:
+                # self.fields['courses'].queryset |= CourseMaster.objects.filter(pk=self.instance.course.pk)
+            self.initial.update({'courses': self.instance.course.pk})
+
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
     phone = forms.CharField(max_length=100,required=True,widget=forms.TextInput(attrs={'class':'form-control' , 'autocomplete': 'off','pattern':'[0-9]+', 'title':'please enter valid number'}))
@@ -95,11 +105,16 @@ class UpdateProfileForm(forms.ModelForm):
     widget=forms.SelectDateWidget( attrs={'readonly':'readonly'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
     is_approved =  forms.BooleanField(required = False,widget=forms.TextInput(attrs={'readonly':'readonly'}))
     
-    course_name = forms.ModelChoiceField(
-        queryset=CourseMaster.objects.all().values_list('course_name',flat=True),initial='id',to_field_name='course_id',
+    courses = forms.ModelChoiceField(
+        queryset=CourseMaster.objects.all(),
         widget=forms.Select(attrs={'class': 'select'}),
+        empty_label='Select Courses',
+        # widget = forms.NumberInput,
+        help_text="Enter the alt of the sample",
+        to_field_name='id'
     )   
+
         
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved','course_name']
+        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved','courses']

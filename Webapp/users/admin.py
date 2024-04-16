@@ -44,7 +44,6 @@ class ProfileAdmin(admin.ModelAdmin):
         return False
     
     def response_change(self, request: HttpRequest, obj: None) -> HttpResponse:
-        import pdb;pdb.set_trace()
         if obj.is_approved:
             # send email for approval
             subject = 'SCMS Application was approved'

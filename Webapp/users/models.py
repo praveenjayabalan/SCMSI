@@ -18,8 +18,8 @@ class Profile(models.Model):
     is_approved = models.BooleanField(default = False)
     tenth_marksheet = models.ImageField(default='default.jpg', upload_to='tenth_marksheet_images')
     twelth_marksheet = models.ImageField(default='default.jpg',upload_to='twelth_marksheet_images')
-    course_id = models.IntegerField(default=0,null =True)
-    # course = models.ForeignKey(CourseMaster,  null=True, on_delete=models.CASCADE)
+    # course_id = models.IntegerField(default=0,null =True)
+    course = models.ForeignKey(CourseMaster,  on_delete=models.SET_NULL, blank=True, null=True)
     def __str__(self):
         return self.user.username
 
