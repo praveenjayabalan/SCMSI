@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
@@ -8,12 +9,34 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
 from course.models import *
-
+from users.models import *
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
+
+from django.template import loader
 
 
 def home(request):
     return render(request, 'users/home.html')
+
+
+class  IDCardView(View):
+    
+    def __init__(self, **kwargs) :
+        super().__init__(**kwargs)
+        
+
+    
+    def details(request, id):
+                
+        userinfo = User.objects.get(profile=id)
+        template = loader.get_template('users/studentcard.html')
+        context = {
+            # 'profile': profileinfo,
+            'user':userinfo
+        }
+        return HttpResponse(template.render(context, request))  
+
+    
 
 
 class RegisterView(View):
