@@ -38,7 +38,11 @@ class  IDCardView(View):
         htmlfile=open("{0}.html".format(id),'w')
         htmlfile.write(parse_html)
         html_file.close()
-        return HttpResponse(template.render(context, request))  
+
+        filename="samplepdf.pdf"
+        response = HttpResponse(pdf,content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment;filename="'+filename+'"'
+        return response
 
     
 
