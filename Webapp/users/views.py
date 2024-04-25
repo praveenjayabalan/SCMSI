@@ -12,6 +12,9 @@ from course.models import *
 from users.models import *
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+import jinja2 
 from django.template import loader
 
 
@@ -23,25 +26,38 @@ class  IDCardView(View):
     
     def __init__(self, **kwargs) :
         super().__init__(**kwargs)
-        
-
-    
-    def details(request, id):
-                
+            
+    def details(request, id):         
         userinfo = User.objects.get(profile=id)
         template = loader.get_template('users/studentcard.html')
-        context = {
-            # 'profile': profileinfo,
-            'user':userinfo
+        import pdb;pdb.set_trace()
+        
+        context = {            
+            'user':userinfo,
+            'imgurl':"http://127.0.0.1:9090" +""+userinfo.profile.avatar.url
         }
-        parse_html=template.render(context,request))
-        htmlfile=open("{0}.html".format(id),'w')
+         
+        parse_html=template.render(context,request)
+        template_file = 'users/{0}.html'.format(id)
+        htmlfile=open(template_file,'w')
         htmlfile.write(parse_html)
-        html_file.close()
+        htmlfile.close()
 
-        filename="samplepdf.pdf"
-        response = HttpResponse(pdf,content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment;filename="'+filename+'"'
+        templateloader = jinja2.FileSystemLoader(searchpath="./")
+        templateEnv = jinja2.Environment(loader=templateloader)    
+        print('template_file',template_file)    
+        # find the template and render it.
+        template = templateEnv.get_template(template_file)
+        html = template.render(context)
+
+        # Create a Django response object, and specify content_type as pdf
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="id_card.pdf"'
+        
+        # create a pdf
+        pisa_status = pisa.CreatePDF(
+        html, dest=response)
+
         return response
 
     

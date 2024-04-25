@@ -4,8 +4,7 @@
 <a href="{% url 'password_change' %}">Change Password</a>
 
 {% csrf_token %}
-      <a href="studentcard/{{ user.profile.id }}">dwnload</a>
-    
+
 
         
     {% if user_form.errors %}
@@ -101,10 +100,14 @@
             
             <br><br>
             <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>            
-            {% if user.profile.is_approved %}
-            
-            {% endif %}
+
+
+            {% if profile_form.is_approved %}
+            <a class="btn btn-dark btn-lg" href="studentcard/{{ user.profile.id }}">Download Access Card</a>
+            {% endif %}    
         </form>
+
+      
         
     </div>
 {% endblock content %}
