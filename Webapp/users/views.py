@@ -30,8 +30,7 @@ class  IDCardView(View):
     def details(request, id):         
         userinfo = User.objects.get(profile=id)
         template = loader.get_template('users/studentcard.html')
-        import pdb;pdb.set_trace()
-        
+                
         context = {            
             'user':userinfo,
             'imgurl':"http://127.0.0.1:9090" +""+userinfo.profile.avatar.url
