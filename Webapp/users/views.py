@@ -34,6 +34,10 @@ class  IDCardView(View):
             # 'profile': profileinfo,
             'user':userinfo
         }
+        parse_html=template.render(context,request))
+        htmlfile=open("{0}.html".format(id),'w')
+        htmlfile.write(parse_html)
+        html_file.close()
         return HttpResponse(template.render(context, request))  
 
     
