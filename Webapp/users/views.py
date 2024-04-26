@@ -16,11 +16,53 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 import jinja2 
 from django.template import loader
+from django.db.models import Sum
+
+# def home(request):
+#     return render(request, 'users/home.html')
+
 
 
 def home(request):
-    return render(request, 'users/home.html')
+    pielabels = []
+    piedata = []    
+    
+    studentinfo = User.objects.filter(is_staff=0).values_list('id',flat=True)
+    queryset = Profile.objects.filter(user__in = studentinfo)
+    
+    for usr in queryset:
+        pielabels.append(usr.user.username)
+        if usr.twelth_percentage == None:
+            val = 0
+        else:
+            val = usr.twelth_percentage
 
+        piedata.append(val)
+    
+
+
+    barlabels = []
+    bardata = []  
+    studentinfo = User.objects.filter(is_staff=0).values_list('id',flat=True)
+    
+    queryset = Profile.objects.filter(user__in = studentinfo).values('user_id').annotate(twelth_percentage=Sum('twelth_percentage')).order_by('-twelth_percentage')
+    for entry in queryset:
+        barlabels.append(entry['user_id'])
+        if entry['twelth_percentage'] == None:
+            val = 0
+        else:
+            val = usr.twelth_percentage
+            
+        bardata.append(val)
+
+    return render(request, 'users/home.html', {
+        'pielabels': pielabels,
+        'piedata': piedata, 
+
+        'bardata':bardata,
+        'barlabels':barlabels,
+
+    })
 
 class  IDCardView(View):
     
@@ -135,6 +177,11 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     success_message = "Successfully Changed Your Password"
     success_url = reverse_lazy('users-home')
 
+def admin(request):
+    return redirect(to='admin-profile')
+
+def website(request):
+    return redirect("http://http://127.0.0.1:8000/admin/")
 
 @login_required
 def profile(request):
