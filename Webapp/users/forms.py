@@ -91,7 +91,8 @@ class UpdateProfileForm(forms.ModelForm):
         
         super().__init__(*args, **kwargs)
         if self.instance.pk:             
-            self.fields['consulting_date'].widget.attrs['disabled']=True             
+            self.fields['consulting_date'].widget.attrs['disabled']=True   
+            # self.fields['is_fee_paid'].widget.attrs['disabled']=True             
             self.initial.update({'courses': self.instance.course.pk})
 
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
@@ -102,6 +103,7 @@ class UpdateProfileForm(forms.ModelForm):
     consulting_date = forms.DateField(required=False,
     widget=forms.SelectDateWidget( attrs={'style': 'width: 33%; display: inline-block;'}, empty_label=("Choose Year", "Choose Month", "Choose Day"),),)
     is_approved =  forms.BooleanField(required = False,widget=forms.TextInput(attrs={'class':'form-control' ,   'readonly':'readonly'}))
+    is_fee_paid =  forms.BooleanField(required = False)
     twelth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}),required=False)
     tenth_marksheet = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}),required=False)
     courses = forms.ModelChoiceField(
@@ -116,4 +118,4 @@ class UpdateProfileForm(forms.ModelForm):
         
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved','courses','twelth_marksheet','tenth_marksheet']
+        fields = ['avatar', 'bio','phone','address','twelth_percentage','consulting_date','is_approved','courses','twelth_marksheet','tenth_marksheet','is_fee_paid']
