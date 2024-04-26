@@ -173,7 +173,7 @@ def admin(request):
     return redirect(to='admin-profile')
 
 def website(request):
-    return redirect("http://http://127.0.0.1:8000/admin/")
+    return redirect("http://127.0.0.1/bmscollege/")
 
 @login_required
 def profile(request):
