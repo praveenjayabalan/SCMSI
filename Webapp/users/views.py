@@ -13,8 +13,7 @@ from users.models import *
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 
 from django.template.loader import get_template
-# from xhtml2pdf import pisa
-import pdfkit
+from xhtml2pdf import pisa
 import jinja2 
 from django.template import loader
 from django.db.models import Sum
@@ -90,16 +89,8 @@ class  IDCardView(View):
         response['Content-Disposition'] = 'attachment; filename="id_card.pdf"'
         
         # create a pdf
-        # pisa_status = pisa.CreatePDF(
-        # html, dest=response)
-        option={
-            'page-size':'A4'
-        }
-
-        path_wkhtmltopdf = "/usr/share/doc/wkhtmltopdf"
-        config = pdfkit.configuration(wkhtmltopdf = path_wkhtmltopdf)
-        pdfkit.from_file(template_file,'id_card.pdf',configuration=config,options=option)
-        
+        pisa_status = pisa.CreatePDF(
+        html, dest=response)
 
         return response
 
