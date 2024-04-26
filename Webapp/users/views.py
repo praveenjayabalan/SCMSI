@@ -18,6 +18,7 @@ import jinja2
 from django.template import loader
 from django.db.models import Sum
 
+
 # def home(request):
 #     return render(request, 'users/home.html')
 
@@ -27,40 +28,31 @@ def home(request):
     pielabels = []
     piedata = []    
     
-    studentinfo = User.objects.filter(is_staff=0).values_list('id',flat=True)
-    queryset = Profile.objects.filter(user__in = studentinfo)
+    studentinfo = User.objects.filter(is_staff=0).values_list('id',flat=True)    
+    aprved_cnt = Profile.objects.filter(user__in = studentinfo,is_approved=1).count()
+    un_aprved_cnt = Profile.objects.filter(user__in = studentinfo,is_approved=0).count()
     
-    for usr in queryset:
-        pielabels.append(usr.user.username)
-        if usr.twelth_percentage == None:
-            val = 0
-        else:
-            val = usr.twelth_percentage
-
-        piedata.append(val)
-    
-
-
     barlabels = []
     bardata = []  
     studentinfo = User.objects.filter(is_staff=0).values_list('id',flat=True)
     
     queryset = Profile.objects.filter(user__in = studentinfo).values('user_id').annotate(twelth_percentage=Sum('twelth_percentage')).order_by('-twelth_percentage')
-    for entry in queryset:
-        barlabels.append(entry['user_id'])
+    for entry in queryset:        
+        username = User.objects.filter(is_staff=0,id = entry['user_id']).values_list('username',flat=True)[0]
+        barlabels.append(username)
         if entry['twelth_percentage'] == None:
             val = 0
         else:
-            val = usr.twelth_percentage
+            val = entry['twelth_percentage']
             
         bardata.append(val)
 
     return render(request, 'users/home.html', {
-        'pielabels': pielabels,
-        'piedata': piedata, 
+        'pielabels': ['Approved Students','Not Approved Students'],
+        'piedata': [int(aprved_cnt),int(un_aprved_cnt)], 
 
-        'bardata':bardata,
-        'barlabels':barlabels,
+        'bardata': bardata ,
+        'barlabels':  barlabels,
 
     })
 
