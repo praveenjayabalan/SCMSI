@@ -7,7 +7,11 @@
         <p class="lead">
             <div class="form-row">
                 <div class="col-md-10">
-                    <h1 class="display-4">Welcome, {{user.first_name.title|default:user.username.title}}</h1>
+                    <h1 class="display-4">Welcome, {{user.first_name.title|default:user.username.title|default:'Guest'}}</h1>
+                    {% if user.is_authenticated == 0 %}
+                        Please sign in or sign up to use our portal 
+                    {% endif %}
+                    
                 </div>
                 <div class="col-md-2">
                     {% if user.is_authenticated %}
@@ -18,13 +22,15 @@
                 </div>
             </div>           
         </p>
-
-        <p class="[lacement">
+        
+        {% if user.is_authenticated == 1 %}
+        <p class="placement">
             College Placement
             <div id="container" style="width: 75%;">
                 <canvas id="line-chart" ></canvas>
             </div>
         </p>
+        {% endif %}
         
         {% if user.is_staff %}
         <p class="lead">
