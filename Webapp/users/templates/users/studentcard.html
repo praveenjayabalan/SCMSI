@@ -13,7 +13,7 @@
             left: 50pt;
             width: 300pt;
             top: 50pt;
-            height: 250pt;
+            height: 300pt;
             -pdf-frame-border: 1;    /* for debugging the layout */
         }
   }
@@ -59,14 +59,14 @@ button:hover, a:hover {
 
 <div  >
   <br>
-<p class="title" style="text-align:center">User Access Card</h2>
+<p class="title" style="text-align:center">BMS Institue Access Card</h2>
 
 <div style="border: 1px;" class="card">
   <img src="{{ imgurl }}" alt="John" style="width:100%">  
   <p class="title">{{ user.first_name }} {{ user.last_name }}</p>
   <p>{{ user.profile.phone   }}</p>
   <p>{{ user.profile.email   }}</p>
-  <p>{{ user.profile.address   }}</p>
+  <p>{{ user.profile.address  }}</p>
   
   
   <pdf:barcode value="BARCODE TEXT COMES HERE" type="code128" humanreadable="0" align="right" />
