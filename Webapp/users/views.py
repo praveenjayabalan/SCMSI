@@ -36,7 +36,7 @@ def home(request):
     bardata = []  
     studentinfo = User.objects.filter(is_staff=0).values_list('id',flat=True)
     
-    queryset = Profile.objects.filter(user__in = studentinfo).values('user_id').annotate(twelth_percentage=Sum('twelth_percentage')).order_by('-twelth_percentage')
+    queryset = Profile.objects.filter(user__in = studentinfo).values('user_id').annotate(twelth_percentage=Sum('twelth_percentage')).order_by('-user_id')
     for entry in queryset:        
         username = User.objects.filter(is_staff=0,id = entry['user_id']).values_list('username',flat=True)[0]
         barlabels.append(username)
