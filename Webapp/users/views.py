@@ -30,10 +30,11 @@ class  IDCardView(View):
     def details(request, id):         
         userinfo = User.objects.get(profile=id)
         template = loader.get_template('users/studentcard.html')
-                
+        
+        base_url = "http://"+request.headers['host']
         context = {            
             'user':userinfo,
-            'imgurl':"http://127.0.0.1:9090" +""+userinfo.profile.avatar.url
+            'imgurl':base_url+""+userinfo.profile.avatar.url
         }
          
         parse_html=template.render(context,request)

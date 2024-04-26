@@ -3,13 +3,26 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-.card {
+<style type="text/css">
+
+  @page{
+    size:A4;
+    margin:1cm;    
+
+    @frame content_frame {
+            left: 50pt;
+            width: 300pt;
+            top: 50pt;
+            height: 250pt;
+            -pdf-frame-border: 1;    /* for debugging the layout */
+        }
+  }
+  .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
   margin: auto;
   text-align: center;
-  font-family: arial;
+  font-family: arial;  
 }
 
 .title {
@@ -30,6 +43,7 @@ button {
   font-size: 18px;
 }
 
+
 a {
   text-decoration: none;
   font-size: 22px;
@@ -43,23 +57,22 @@ button:hover, a:hover {
 </head>
 <body>  
 
-<h2 style="text-align:center">User Access Card</h2>
+<div  >
+  <br>
+<p class="title" style="text-align:center">User Access Card</h2>
 
 <div style="border: 1px;" class="card">
-  <img src="{{ imgurl }}" alt="John" style="width:100%">
-  <h1>John Doe</h1>
-  <p class="title">{{ user.firstname }} {{ user.lastname }}</p>
+  <img src="{{ imgurl }}" alt="John" style="width:100%">  
+  <p class="title">{{ user.first_name }} {{ user.last_name }}</p>
   <p>{{ user.profile.phone   }}</p>
   <p>{{ user.profile.email   }}</p>
   <p>{{ user.profile.address   }}</p>
-  <div style="margin: 24px 0;">
-    <a href="#"><i class="fa fa-dribbble"></i></a> 
-    <a href="#"><i class="fa fa-twitter"></i></a>  
-    <a href="#"><i class="fa fa-linkedin"></i></a>  
-    <a href="#"><i class="fa fa-facebook"></i></a> 
-  </div>
-  <p><button>contact us:987654321</button></p>
-</div>
+  
+  
+  <pdf:barcode value="BARCODE TEXT COMES HERE" type="code128" humanreadable="0" align="right" />
 
+  <p>contact us on:987654321  </p>
+</div>
+</div>
 </body>
 </html>
