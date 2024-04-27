@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # 'social_django',
     'configdata.apps.ConfigdataConfig',
     'course.apps.CourseConfig',
+    'instaltype.apps.InstaltypeConfig'
 ]
 
 MIDDLEWARE = [
