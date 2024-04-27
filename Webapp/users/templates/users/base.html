@@ -11,6 +11,7 @@
     <!--Font awesome icons -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
+  <link href='https://fonts.googleapis.com/css?family=Libre Barcode 39' rel='stylesheet'>
     <title>{% block title %} {% endblock %} </title>
 </head>
 <body>
@@ -48,11 +49,17 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          
         {% endif %}
         {% block content %}{% endblock %}
       </div>
     </div>
   </div>
+
+    <!-- PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -63,5 +70,26 @@
     <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     
+    <script>
+      window.jsPDF = window.jspdf.jsPDF;
+      var docPDF = new jsPDF();
+
+      function downloadPDF(idCard){
+
+        
+
+            var elementHTML = document.querySelector("#myIDCard");
+            
+            docPDF.html(elementHTML, {
+                callback: function(docPDF) {
+                    docPDF.save(idCard+'.pdf');
+                },
+                x: 15,
+                y: 15,
+                width: 170,
+                windowWidth: 650
+            });
+        }
+    </script>
 </body>
 </html>
