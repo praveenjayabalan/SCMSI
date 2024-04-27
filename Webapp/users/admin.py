@@ -31,9 +31,8 @@ class UserAdmin(admin.ModelAdmin):
         return False
     
     
-class ProfileAdmin(admin.ModelAdmin):
-    # ,'is_fee_paid'
-    fields = ['is_approved','phone','address','bio','avatar','twelth_percentage','consulting_date','tenth_marksheet','twelth_marksheet']
+class ProfileAdmin(admin.ModelAdmin):    
+    fields = ['is_approved','phone','address','bio','avatar','twelth_percentage','consulting_date','tenth_marksheet','twelth_marksheet','installation_type','is_fee_paid']
     list_display = ['user','phone', 'address', 'twelth_percentage']     
 
     def get_queryset(self,request):        

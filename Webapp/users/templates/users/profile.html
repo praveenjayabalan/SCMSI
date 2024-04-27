@@ -81,12 +81,10 @@
                     <label class="small mb-1">Counsling Date:</label>
                     <div> {{ profile_form.consulting_date }}</div>           
                 </div>
-                <!-- <div class="col-md-5" style="display: block;" >
+                <div class="col-md-5" style="display: block;" >
                     <label style="display: block;" class="small mb-1">Fee Paid:  </label>
-
-                    {{profile_form.is_fee_paid }}                        
-                        
-                </div> -->
+                    {{profile_form.is_fee_paid }}                                                
+                </div>
             </div>  
             <div class="form-row">
                 <div class="col-md-5">
@@ -104,7 +102,7 @@
             <br><br>
             <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>            
 
-            {% if profile_form.is_approved.value %}                        
+            {% if profile_form.is_approved.value and profile_form.is_fee_paid.value %}                        
             <button  class="btn btn-dark btn-lg"  type="button" onclick="downloadPDF('idCard')">ID Card Generation</button>
             {% endif %}    
             

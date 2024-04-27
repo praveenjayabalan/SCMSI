@@ -92,7 +92,7 @@ class UpdateProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if self.instance.pk:             
             self.fields['consulting_date'].widget.attrs['disabled']=True   
-            # self.fields['is_fee_paid'].widget.attrs['disabled']=True             
+            self.fields['is_fee_paid'].widget.attrs['disabled']=True             
             self.initial.update({'courses': self.instance.course.pk})
 
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
