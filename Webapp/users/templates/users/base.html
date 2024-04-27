@@ -79,17 +79,19 @@
         
 
             var elementHTML = document.querySelector("#myIDCard");
-            
+            elementHTML.style.visibility = 'visible'; 
             docPDF.html(elementHTML, {
                 callback: function(docPDF) {
                     docPDF.save(idCard+'.pdf');
+                    elementHTML.style.visibility = 'hidden'; 
                 },
                 x: 15,
                 y: 15,
                 width: 170,
                 windowWidth: 650
             });
-        }
+            
+          }
     </script>
 </body>
 </html>
