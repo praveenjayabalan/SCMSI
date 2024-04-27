@@ -94,7 +94,24 @@ class  IDCardView(View):
 
         return response
 
-    
+from django.views.decorators.csrf import csrf_exempt
+
+
+class Sendemail(View):    
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        import pdb;pdb.set_trace()
+
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = 'Contact us email from BMS'
+        message = f'Hi {name}, Request with contact details'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [email, ]
+        send_mail( subject, message, email_from, recipient_list )
+
+        return HttpResponse()
+
 
 
 class RegisterView(View):
