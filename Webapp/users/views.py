@@ -14,7 +14,7 @@ from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 
 from django.template.loader import get_template
 # from xhtml2pdf import pisa
-import jinja2 
+# import jinja2 
 from django.template import loader
 from django.db.models import Sum
 
@@ -65,24 +65,24 @@ class  IDCardView(View):
         userinfo = User.objects.get(profile=id)
         template = loader.get_template('users/studentcard.html')
         
-        base_url = "http://"+request.headers['host']
-        context = {            
-            'user':userinfo,
-            'imgurl':base_url+""+userinfo.profile.avatar.url
-        }
+        # base_url = "http://"+request.headers['host']
+        # context = {            
+        #     'user':userinfo,
+        #     'imgurl':base_url+""+userinfo.profile.avatar.url
+        # }
          
-        parse_html=template.render(context,request)
-        template_file = 'users/{0}.html'.format(id)
-        htmlfile=open(template_file,'w')
-        htmlfile.write(parse_html)
-        htmlfile.close()
+        # parse_html=template.render(context,request)
+        # template_file = 'users/{0}.html'.format(id)
+        # htmlfile=open(template_file,'w')
+        # htmlfile.write(parse_html)
+        # htmlfile.close()
 
-        templateloader = jinja2.FileSystemLoader(searchpath="./")
-        templateEnv = jinja2.Environment(loader=templateloader)    
-        print('template_file',template_file)    
-        # find the template and render it.
-        template = templateEnv.get_template(template_file)
-        html = template.render(context)
+        # templateloader = jinja2.FileSystemLoader(searchpath="./")
+        # templateEnv = jinja2.Environment(loader=templateloader)    
+        # print('template_file',template_file)    
+        # # find the template and render it.
+        # template = templateEnv.get_template(template_file)
+        # html = template.render(context)
 
         # Create a Django response object, and specify content_type as pdf
         response = HttpResponse(content_type='application/pdf')
