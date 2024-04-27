@@ -15,7 +15,7 @@ class Profile(models.Model):
     phone = models.TextField(null = True)
     address = models.TextField(null = True)
     twelth_percentage = models.IntegerField(null = True,max_length=10)
-    consulting_date = models.DateField(default=datetime.datetime.now, blank=True)
+    consulting_date = models.DateField(null=True)
     is_approved = models.BooleanField(default = False)
     is_fee_paid = models.BooleanField(default = False)
     tenth_marksheet = models.ImageField(default='default.jpg', upload_to='tenth_marksheet_images')
@@ -24,7 +24,7 @@ class Profile(models.Model):
     installation_type = models.ForeignKey(InstallTypeMaster,  on_delete=models.SET_NULL, blank=True, null=True)
     def __str__(self):
         return self.user.username
-
+    
     # resizing images
     def save(self, *args, **kwargs):
         super().save()
